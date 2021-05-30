@@ -1,0 +1,194 @@
+/*
+COLORS:
+
+Light green: #7ed56f
+Medium green: #55c57a
+Dark green: #28b485
+
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #777;
+    padding: 30px;
+}
+
+.header {
+    height: 95vh; /* viewport height */
+    background-image: linear-gradient(
+        to right bottom, 
+        #7ed56fda,
+        #28b485e1
+    ), url(../img/hero.jpg); /* Put a linear gradient with low opacity on top of an image */
+    background-size: cover; /* Take size of available viewport */
+    background-position: top; /* On screen resize vertically, top part remains same while bottom part crops */
+    clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%); /* Specify the polygon in which the element would still be visible */
+    position: relative;
+}
+
+.logo-box {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+}
+
+.logo {
+    height: 35px;
+}
+
+.text-box {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.heading-primary {
+    color: #fff;
+    text-transform: uppercase;
+    /* Hack to remove shakiness in the animation happeining in front of this element */
+    backface-visibility: hidden;
+    margin-bottom: 60px;
+}
+
+.heading-primary-main {
+    display: block;
+    font-size: 60px;
+    font-weight: 400;
+    letter-spacing: 35px;
+
+    animation-name: moveInLeft;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+
+    /*
+    animation-delay: 3s;
+    animation-iteration-count: 3;
+    */
+}
+
+.heading-primary-sub {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 17.4px;
+
+    animation: moveInRight 1s ease-out;
+}
+
+/* Animations */
+@keyframes moveInLeft {
+    /* Initial state */
+    0% {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+
+    80% {
+        transform: translateX(20px);
+    }
+
+    /* Final state */
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Animations */
+@keyframes moveInRight {
+    /* Initial state */
+    0% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+
+    80% {
+        transform: translateX(-20px);
+    }
+
+    /* Final state */
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes moveInBottom {
+    /* Initial state */
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    /* Final state */
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.btn:link,
+.btn:visited {
+    display: inline-block; /* Allow element to be positioned as given in parent element and still behave like a block element */
+    text-decoration: none; /* Remove the default beehaviour like blue color text with underline */
+    text-transform: uppercase;
+    padding: 15px 40px;
+    border-radius: 100px; /* rounded corners */
+    transition: all 0.2s; /* Animate the transitions on all it's poperties like hover & active */
+    position: relative;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* A black shadow 10px deep and 20px blurred */
+}
+
+.btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); /* A black shadow 5px deep and 10px blurred */
+}
+
+.btn-white {
+    background-color: #fff;
+    color: #777;
+}
+
+/* A pseudo-element that is the last child of the selected element */
+.btn::after {
+    content: ""; /* Mandatory property in pseudo-elements */
+    display: inline-block;
+    width: 100%; /* Same width as parent element */
+    height: 100%; /* Same height as parent element */
+    border-radius: 100px;
+    position: absolute; /* Position relative to the first element it can find with position relative */
+    top: 0;
+    left: 0;
+    z-index: -1; /* Put this element behind the element it is defined on */
+    transition: all 0.4s;
+}
+
+.btn-white::after {
+    background-color: #fff;
+}
+
+/* Styling the after pseudo element when the state of button is hover */
+.btn:hover::after {
+    transform: scaleX(1.4) scaleY(1.6); /* Update the size of this element */
+    opacity: 0; /* Fade the button */
+}
+
+.btn-animated {
+    animation: moveInBottom 0.5s ease-out 0.75s; /* Animation delayed by 0.75 sec */
+    animation-fill-mode: backwards; /* Automatically apply the styles of state 0% before the animation starts */
+}
